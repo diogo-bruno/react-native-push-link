@@ -36,7 +36,8 @@
     "react": "^16.8.1",
     "react-native": ">=0.60.0-rc.0 <1.0.x"
   },
-  "devDependencies": {
+  "devDependencies": {},
+  "dependencies": {
     "axios": "^0.21.1",
     "cli-select": "^1.1.2",
     "clipboardy": "^2.3.0",
@@ -45,6 +46,5 @@
     "https-proxy-agent": "^5.0.0",
     "loading-cli": "^1.1.0",
     "xml-js": "^1.6.11"
-  },
-  "dependencies": {}
+  }
 }
