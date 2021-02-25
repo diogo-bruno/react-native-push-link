@@ -1,0 +1,50 @@
+{
+  "name": "react-native-push-link",
+  "title": "React Native Push Link",
+  "version": "1.0.0",
+  "description": "PushLink plugin for React Native",
+  "main": "js/index.js",
+  "files": [
+    "README.md",
+    "android",
+    "js/"
+  ],
+  "scripts": {
+    "publish": "npm login && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diogo-bruno/react-native-push-link.git",
+    "baseUrl": "https://github.com/diogo-bruno/react-native-push-link"
+  },
+  "keywords": [
+    "react-native",
+    "pushlink",
+    "android",
+    "update",
+    "react-native-android",
+    "react-native-push-link"
+  ],
+  "author": {
+    "name": "Diogo Bruno Almeida",
+    "email": "diogo.bruno2@gmail.com"
+  },
+  "license": "MIT",
+  "licenseFilename": "LICENSE",
+  "readmeFilename": "README.md",
+  "peerDependencies": {
+    "react": "^16.8.1",
+    "react-native": ">=0.60.0-rc.0 <1.0.x"
+  },
+  "devDependencies": {
+    "axios": "^0.21.1",
+    "cli-select": "^1.1.2",
+    "clipboardy": "^2.3.0",
+    "dotenv": "^8.2.0",
+    "form-data": "^4.0.0",
+    "https-proxy-agent": "^5.0.0",
+    "loading-cli": "^1.1.0",
+    "xml-js": "^1.6.11"
+  },
+  "dependencies": {}
+}
