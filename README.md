@@ -6,7 +6,7 @@
 
 # `React Native PushLink SDK`
 
-[![npm](https://img.shields.io/npm/v/react-native-push-link)](https://www.npmjs.com/package/react-native-push-link) [![CircleCI Status](https://img.shields.io/circleci/project/github/diogo-bruno/react-native-push-link/circleci-project-setup.svg)](https://circleci.com/gh/diogo-bruno/workflows/react-native-push-link/tree/master) ![Supports Android](https://img.shields.io/badge/platforms-android-lightgrey.svg)
+[![npm](https://img.shields.io/npm/v/react-native-push-link)](https://www.npmjs.com/package/react-native-push-link) [![CircleCI Status](https://img.shields.io/circleci/build/github/diogo-bruno/react-native-push-link/master.svg)](https://circleci.com/gh/diogo-bruno/workflows/react-native-push-link/tree/master) ![Supports Android](https://img.shields.io/badge/platforms-android-lightgrey.svg)
 
 ## `Docs`
 
