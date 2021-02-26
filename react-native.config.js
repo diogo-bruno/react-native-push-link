@@ -2,6 +2,7 @@ module.exports = {
   commands: [
     {
       name: 'pushlink-prepare-project',
+      description: 'Prepare Android project to use the features of the PushLink',
       func: () => {
         console.log('Processing Command...');
         setTimeout(function () {
@@ -12,6 +13,7 @@ module.exports = {
     },
     {
       name: 'pushlink-publish-apk',
+      description: 'Publish APK Debug/Release to the system PushLink',
       func: () => {
         console.log('Processing Command...');
         setTimeout(function () {
@@ -22,6 +24,7 @@ module.exports = {
     },
     {
       name: 'pushlink-download-apk',
+      description: 'Download the latest APK of your project directly from the PushLink platform',
       func: () => {
         console.log('Processing Command...');
         setTimeout(function () {

@@ -14,4 +14,4 @@ jobs:
           command: cd ./android/ && sudo chmod +x ./gradlew && ./gradlew androidDependencies
       - run:
          name: Build
-         command: cd ./android/ && sudo chmod +x ./gradlew && ./gradlew build
+         command: cd ./android/ && sudo chmod +x ./gradlew && ./gradlew assembleDebug

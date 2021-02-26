@@ -54,7 +54,7 @@ react-native pushlink-download-apk
 
 ## `Example project`
 
-[Example Project React Native - PushLink](https://onesignal.com/)
+[Example Project React Native - PushLink](https://github.com/diogo-bruno/react-native-push-link-example)
 
 ## `Usage`
 
@@ -101,4 +101,4 @@ componentDidMount = () => {
 
 Always feel free to drop a line to support at pushlink dot com or visit our [support](https://www.pushlink.com/support.xhtml).
 
-Users are always welcome to contribute with [issues](https://github.com/pushlink/pushlink-cordova-plugin/issues) and [pull requests](https://github.com/pushlink/pushlink-cordova-plugin/pulls)
+Users are always welcome to contribute with [issues](https://github.com/diogo-bruno/react-native-push-link/issues) and [pull requests](https://github.com/diogo-bruno/react-native-push-link/pulls)
