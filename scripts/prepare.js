@@ -1,9 +1,10 @@
+const { exec } = require('child_process');
+const path = require('path');
+const fs = require('fs');
 const utils = require('./utils');
 
 utils.print('cyan', 'Prepare Android settings', 2);
 
-const path = require('path');
-const fs = require('fs');
 const editAndroidManifest = require('./edit-android-manifest');
 
 const pathDirPlugin = path.resolve('./node_modules/react-native-push-link/scripts/');
@@ -64,7 +65,7 @@ fs.writeFileSync(
   'utf-8',
 );
 
-utils.print('green', '• Update file AndroidManifest', 2);
+utils.print('green', '• Update file AndroidManifest');
 
 const fileAndroidManifest = pathAndroidMain + '/AndroidManifest.xml';
 
@@ -74,10 +75,33 @@ let xmlAndroidManifest = editAndroidManifest(contentAndroidManifest, packageName
 
 fs.writeFileSync(fileAndroidManifest, xmlAndroidManifest, 'utf-8');
 
-utils.print('yellow', 'For strategy CUSTOM update, requires the app to be a device owner!');
-utils.print('white', 'Command to device owner:', 1);
-utils.print('red', 'adb shell dpm set-device-owner ' + packageName + '/.PushlinkAdminReceiver', 2);
+utils.print('green', '• Format AndroidManifest');
 
-utils.print('magenta', 'Finished Configuration', 2);
+const commandFormatAndroidManifest =
+  "./node_modules/.bin/prettier --tab-width 3 --print-width 60 --write './android/app/src/main/*.xml'";
+
+exec(
+  commandFormatAndroidManifest,
+  process.platform === 'win32' ? { shell: 'powershell.exe' } : null,
+  (error, stdout, stderr) => {
+    if (error) {
+      utils.print('red', '• Error format AndroidManifest.xml [' + error.message + ']', 2);
+    }
+
+    if (stdout) {
+      utils.print('green', '• AndroidManifest.xml formated', 2);
+    }
+
+    utils.print('yellow', 'For strategy CUSTOM update, requires the app to be a device owner!');
+    utils.print('white', 'Command to device owner:', 1);
+    utils.print(
+      'red',
+      'adb shell dpm set-device-owner ' + packageName + '/.PushlinkAdminReceiver',
+      2,
+    );
+
+    utils.print('magenta', 'Finished Configuration', 2);
+  },
+);
 
 //clear && yarn install && react-native pushlink-prepare-project

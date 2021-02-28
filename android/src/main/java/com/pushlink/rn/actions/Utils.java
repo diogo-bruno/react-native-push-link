@@ -41,8 +41,6 @@ public class Utils {
 
                 params.setAppPackageName(context.getPackageName());
 
-                //Log.e(PushLinkManager.TAG, "getPackageName: " + context.getPackageName());
-
                 // set params
                 int sessionId = packageInstaller.createSession(params);
 
@@ -108,7 +106,6 @@ public class Utils {
         return result;
     }
 
-
     public String returnErrorInvoke(String error) {
         JSONObject returnValue = new JSONObject();
         try {
@@ -124,6 +121,11 @@ public class Utils {
         prefs.edit().putString("uri_apk", "").apply();
         prefs.edit().putInt("icon_apk", 0).apply();
         prefs.edit().putString("hash_apk", "").apply();
+    }
+
+    public static void setMsgUpdateApk(Context context, String msg) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefs.edit().putString("msg_update_apk", msg).apply();
     }
 
 }

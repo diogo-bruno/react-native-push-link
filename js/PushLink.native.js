@@ -192,6 +192,9 @@ const PushLink = {
   captureGlobalErrorsReactNative: (option) => {
     PushLinkcaptureGlobarErros = option;
   },
+  setMsgUpdateApk: (message) => {
+    return androidExec('set_msg_update_apk', { message: message });
+  },
 };
 
 export default PushLink;

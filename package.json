@@ -10,7 +10,7 @@
     "js/"
   ],
   "scripts": {
-    "publish": "npm login && npm publish"
+    "npm-publish": "node ./scripts/version.js && npm login && npm publish"
   },
   "repository": {
     "type": "git",
@@ -38,6 +38,7 @@
   },
   "devDependencies": {},
   "dependencies": {
+    "@prettier/plugin-xml": "^0.13.0",
     "axios": "^0.21.1",
     "cli-select": "^1.1.2",
     "clipboardy": "^2.3.0",
@@ -45,6 +46,7 @@
     "form-data": "^4.0.0",
     "https-proxy-agent": "^5.0.0",
     "loading-cli": "^1.1.0",
+    "prettier": "^2.2.1",
     "xml-js": "^1.6.11"
   }
 }

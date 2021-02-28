@@ -37,8 +37,6 @@ import java.util.Map;
 
 public class PushLinkManager extends ReactContextBaseJavaModule implements LifecycleEventListener {
 
-    public static final String VERSION = "1.0.0";
-
     public static final String TAG = "PushLinkPlugin";
 
     private final ReactApplicationContext reactContext;
@@ -59,14 +57,13 @@ public class PushLinkManager extends ReactContextBaseJavaModule implements Lifec
     public static final String INSTALL_APK = "installApk";
     public static final String SEND_EXCEPTION_REACT_NATIVE = "SendAsyncExceptionReactNative";
 
-
     Utils utils = new Utils();
 
     public PushLinkManager(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
 
-        Log.i(PushLinkManager.TAG, "Initializing " + TAG + " v:" + VERSION);
+        Log.i(PushLinkManager.TAG, "Initializing " + TAG + " v:" + Version.pluginVersion);
     }
 
     @Override
@@ -98,7 +95,7 @@ public class PushLinkManager extends ReactContextBaseJavaModule implements Lifec
         try {
             final Activity activity = getCurrentActivity();
 
-            JSONObject args = new JSONObject();
+            JSONObject arg = new JSONObject();
 
             try {
                 if (actionArgs != null && actionArgs.size() > 0 && !actionArgs.isNull(0)) {
@@ -106,7 +103,7 @@ public class PushLinkManager extends ReactContextBaseJavaModule implements Lifec
                     JSONArray jsonArray = convertArrayToJson(actionArgs);
 
                     if (jsonArray != null && jsonArray.length() > 0) {
-                        args = jsonArray.getJSONObject(0);
+                        arg = jsonArray.getJSONObject(0);
                     }
 
                 }
@@ -118,12 +115,17 @@ public class PushLinkManager extends ReactContextBaseJavaModule implements Lifec
 
                 PushLinkPluginAction pluginAction = actions.get(action);
                 assert pluginAction != null;
-                pluginAction.execute(activity, reactContext, args, callbackContext);
+                pluginAction.execute(activity, reactContext, arg, callbackContext);
+
+            } else if ("set_msg_update_apk".equals(action)) {
+
+                Utils.setMsgUpdateApk(reactContext, arg.getString("message"));
+                callbackContext.invoke(true);
 
             } else if ("version".equals(action)) {
 
                 JSONObject returnValue = new JSONObject();
-                returnValue.put("version", VERSION);
+                returnValue.put("version", Version.pluginVersion);
                 callbackContext.invoke(returnValue.toString());
 
             } else {

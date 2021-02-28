@@ -132,4 +132,9 @@ declare module 'react-native-push-link' {
    * Enable capture errors Global ReactNative
    */
   export function captureGlobalErrorsReactNative(option: Boolean): void;
+
+  /**
+   * Message shown in Toast when updating APK
+   */
+  export function setMsgUpdateApk(message: String): void;
 }
