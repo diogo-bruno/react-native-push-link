@@ -137,4 +137,9 @@ declare module 'react-native-push-link' {
    * Message shown in Toast when updating APK
    */
   export function setMsgUpdateApk(message: String): void;
+
+  /**
+   * Show Toast Message by Plugin PushLink
+   */
+  export function toastMessage(message: String): void;
 }

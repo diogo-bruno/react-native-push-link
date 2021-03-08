@@ -22,3 +22,4 @@ buck-out/
 *.keystore
 
 example/pushlink-apk-download/*
+example/.env

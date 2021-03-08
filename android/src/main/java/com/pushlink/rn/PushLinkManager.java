@@ -27,6 +27,7 @@ import com.pushlink.rn.actions.Utils;
 
 import android.app.Activity;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,6 +41,8 @@ public class PushLinkManager extends ReactContextBaseJavaModule implements Lifec
     public static final String TAG = "PushLinkPlugin";
 
     private final ReactApplicationContext reactContext;
+
+    private Toast mToast;
 
     public static final String REACT_CLASS = "RNPushLink";
 
@@ -127,6 +130,15 @@ public class PushLinkManager extends ReactContextBaseJavaModule implements Lifec
                 JSONObject returnValue = new JSONObject();
                 returnValue.put("version", Version.pluginVersion);
                 callbackContext.invoke(returnValue.toString());
+
+            } else if (action.equals("toast") && arg.getString("message") != null) {
+
+                if (mToast != null) {
+                    mToast.cancel();
+                }
+                mToast = Toast.makeText(reactContext, "", Toast.LENGTH_LONG);
+                mToast.setText(arg.getString("message"));
+                mToast.show();
 
             } else {
 

@@ -57,7 +57,10 @@ const PromiseError = async (msg) => {
 const androidExec = async (action, arg) => {
   var args = arg ? [arg] : [];
 
-  if (!PushLinkStarted && !['start', 'getDeviceId', 'version'].includes(action)) {
+  if (
+    !PushLinkStarted &&
+    !['start', 'getDeviceId', 'version', 'set_msg_update_apk', 'toast'].includes(action)
+  ) {
     return PromiseError('PushLink not started...');
   }
 
@@ -194,6 +197,9 @@ const PushLink = {
   },
   setMsgUpdateApk: (message) => {
     return androidExec('set_msg_update_apk', { message: message });
+  },
+  toastMessage: (message) => {
+    return androidExec('toast', { message: message });
   },
 };
 
