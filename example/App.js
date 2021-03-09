@@ -52,12 +52,15 @@ export default class App extends Component {
     this.setState({currentStrategy: currentStrategy});
   };
 
-  reciverEventListenerCustom(data) {
+  async reciverEventListenerCustom(data) {
     console.log('_reciverEventListener CUSTOM', data);
     countReciverEventListenerCustom++;
     PushLink.toastMessage(
       'call reciverEventListenerCustom: ' + countReciverEventListenerCustom,
     );
+
+    // Open modal user interaction or silent install...
+    //const install = await PushLink.installApk().catch((e) => e);
   }
 
   selectStrategy = async () => {
