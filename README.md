@@ -16,14 +16,22 @@
 
 ## `Installation`
 
+- Download dependencies
+
 ```sh
 yarn add react-native-push-link
+
+# or
+
+npm install react-native-push-link --save
 ```
 
-or
+and
 
-```sh
-npm install react-native-push-link --save
+- Create or Edit file .env api Key
+
+```
+PUSH_LINK_API_KEY=your-api-key
 ```
 
 ---
@@ -36,7 +44,7 @@ react-native pushlink-prepare-project
 
 ## `Publish APK PushLink`
 
-- Required .env [PUSH_LINK_API_KEY=your-api-key] in project react
+- Required .env [PUSH_LINK_API_KEY=your-api-key] in project root
 
 ```sh
 react-native pushlink-publish-apk
@@ -44,7 +52,7 @@ react-native pushlink-publish-apk
 
 ## `Download APK PushLink`
 
-- Required .env [PUSH_LINK_API_KEY=your-api-key] in project react
+- Required .env [PUSH_LINK_API_KEY=your-api-key] in project root
 
 ```sh
 react-native pushlink-download-apk
@@ -52,7 +60,7 @@ react-native pushlink-download-apk
 
 ---
 
-## Running Project
+## `Running Project`
 
 ```sh
 cd ./example
@@ -79,19 +87,10 @@ componentDidMount = () => {
 
   const pushLinkStarted = await PushLink.start(PUSH_LINK_API_KEY, deviceId).catch((e) => e);
 
-  const strategyCustom = await PushLink.setStrategyCustom(
-    { TypeBroadcastReceiver: 'APPLY' },
-    (responseBroadcast) => {
-      console.log(responseBroadcast);
-      // new APK for install...
-
-      // Open modal user interaction or silent install...
-      const install = await PushLink.installApk().catch((e) => e);
-    },
-  ).catch((e) => e);
-
 };
 ```
+
+<a target="_blank" href="https://github.com/diogo-bruno/react-native-push-link/blob/master/example/App.js">Open file Application: <b>App.js</b></a>
 
 ---
 
