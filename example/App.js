@@ -1,40 +1,67 @@
 import React, {Component} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import {PUSH_LINK_API_KEY} from '@env';
-import {TouchableOpacity, StyleSheet, Image, Text, View} from 'react-native';
+import changeNavigationBarColor from 'react-native-navigation-bar-color';
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  Text,
+  StatusBar,
+  SafeAreaView,
+} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
+
 import PushLink from 'react-native-push-link';
 
+let countReciverEventListenerCustom = 0;
+
 export default class App extends Component {
-  pushLinkStarted;
-  deviceId;
-  currentStrategySelected = 'CUSTOM';
-  currentStrategy;
+  constructor(props) {
+    super(props);
+    this.state = {
+      pushLinkStarted: false,
+      deviceId: '',
+      currentStrategySelected: 'CUSTOM',
+      currentStrategy: {},
+    };
+  }
 
   onError(error) {
     console.log('onError Print: ', error);
-    PushLink.toastMessage(error);
+    PushLink.toastMessage(error.error);
   }
 
   pushLinkStart = async () => {
-    this.pushLinkStarted = await PushLink.start(
+    const pushLinkStarted = await PushLink.start(
       PUSH_LINK_API_KEY,
       this.deviceId,
     ).catch(this.onError);
+    this.setState({pushLinkStarted: pushLinkStarted});
+  };
+
+  getDeviceId = async () => {
+    const deviceId = await PushLink.getDeviceId().catch(this.onError);
+    this.setState({deviceId: deviceId});
   };
 
   getCurrentStrategy = async () => {
-    this.currentStrategy = await PushLink.getCurrentStrategy().catch(
+    const currentStrategy = await PushLink.getCurrentStrategy().catch(
       this.onError,
     );
+    this.setState({currentStrategy: currentStrategy});
   };
 
   reciverEventListenerCustom(data) {
     console.log('_reciverEventListener CUSTOM', data);
+    countReciverEventListenerCustom++;
+    PushLink.toastMessage(
+      'call reciverEventListenerCustom: ' + countReciverEventListenerCustom,
+    );
   }
 
   selectStrategy = async () => {
-    switch (this.currentStrategySelected) {
+    switch (this.state.currentStrategySelected) {
       case 'ANNOYING_POPUP':
         await PushLink.setStrategyAnnoyingPoup().catch(this.onError);
         break;
@@ -60,35 +87,53 @@ export default class App extends Component {
   };
 
   componentDidMount = async () => {
-    this.deviceId = await PushLink.getDeviceId().catch(this.onError);
+    await this.getDeviceId();
+    await this.getCurrentStrategy();
+    await changeNavigationBarColor('#3d9874', false);
     SplashScreen.hide();
   };
 
   render() {
     return (
       <>
-        <View style={styles.container}>
+        <StatusBar
+          animated={true}
+          backgroundColor="#3d9874"
+          barStyle={'light-content'}
+          showHideTransition={'fade'}
+          hidden={false}
+        />
+        <SafeAreaView style={styles.container}>
           <Image
-            style={styles.tinyLogo}
-            source={require('./assets/push-link.png')}
+            style={styles.logo}
+            source={{
+              uri:
+                'https://pushlink.com/javax.faces.resource/images/site/logo-verde.png.xhtml?ln=pushlink',
+            }}
           />
 
-          <Text>DeviceId: {this.deviceId}</Text>
+          <Text>DeviceId: {this.state.deviceId}</Text>
 
-          <TouchableOpacity style={styles.button} onPress={this.pushLinkStart}>
-            <Text>Start PushLink</Text>
+          <TouchableOpacity style={styles.button1} onPress={this.pushLinkStart}>
+            <Text style={styles.colorWhite}>Start PushLink</Text>
           </TouchableOpacity>
 
-          <Text>Current Strategy:</Text>
+          <Text style={styles.title}>Current Strategy:</Text>
 
-          <Text>{this.currentStrategy}</Text>
+          <Text style={styles.instructions}>
+            {JSON.stringify(this.state.currentStrategy, null, 1)}
+          </Text>
 
-          <Text>Select Strategy:</Text>
+          <Text style={styles.title}>Select Strategy:</Text>
 
           <RNPickerSelect
+            placeholder={{}}
+            InputAccessoryView={() => null}
+            style={pickerSelectStyles}
             onValueChange={(value) => {
-              this.currentStrategySelected = value;
+              this.setState({currentStrategySelected: value});
             }}
+            value={this.state.currentStrategySelected}
             items={[
               {label: 'ANNOYING_POPUP', value: 'ANNOYING_POPUP'},
               {label: 'FRIENDLY_POPUP', value: 'FRIENDLY_POPUP'},
@@ -98,10 +143,12 @@ export default class App extends Component {
             ]}
           />
 
-          <TouchableOpacity style={styles.button} onPress={this.selectStrategy}>
-            <Text>Set Strategy</Text>
+          <TouchableOpacity
+            style={styles.button2}
+            onPress={this.selectStrategy}>
+            <Text style={styles.colorWhite}>Set Strategy</Text>
           </TouchableOpacity>
-        </View>
+        </SafeAreaView>
       </>
     );
   }
@@ -112,32 +159,67 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#000',
+    backgroundColor: '#fff',
+    color: 'white',
+    textAlign: 'center',
+  },
+  colorWhite: {
     color: 'white',
   },
-  welcome: {
-    fontSize: 20,
+  title: {
+    fontSize: 16,
     textAlign: 'center',
-    margin: 10,
-    color: 'white',
-    marginBottom: 20,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
+    marginTop: 30,
+    color: 'black',
     marginBottom: 5,
   },
-  button: {
+  instructions: {
+    textAlign: 'left',
+    color: '#AAA',
+    marginBottom: 0,
+  },
+  button1: {
     alignItems: 'center',
-    backgroundColor: '#DDDDDD',
+    backgroundColor: 'red',
     padding: 10,
     marginTop: 20,
   },
-  tinyLogo: {
+  button2: {
+    alignItems: 'center',
+    backgroundColor: '#1fa6cb',
+    padding: 10,
+    marginTop: 20,
+  },
+  logo: {
     justifyContent: 'center',
     alignItems: 'center',
     resizeMode: 'contain',
     width: '80%',
     height: 150,
+  },
+});
+
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 4,
+    color: 'black',
+    paddingRight: 30,
+  },
+  inputAndroid: {
+    marginLeft: '25%',
+    width: '50%',
+    fontSize: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 0.5,
+    borderColor: 'purple',
+    borderRadius: 8,
+    color: 'black',
+    paddingRight: 30,
   },
 });

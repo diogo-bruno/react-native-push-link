@@ -59,7 +59,14 @@ const androidExec = async (action, arg) => {
 
   if (
     !PushLinkStarted &&
-    !['start', 'getDeviceId', 'version', 'set_msg_update_apk', 'toast'].includes(action)
+    ![
+      'start',
+      'getDeviceId',
+      'version',
+      'set_msg_update_apk',
+      'toast',
+      'getCurrentStrategy',
+    ].includes(action)
   ) {
     return PromiseError('PushLink not started...');
   }

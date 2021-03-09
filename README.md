@@ -52,6 +52,16 @@ react-native pushlink-download-apk
 
 ---
 
+## Running Project
+
+```sh
+cd ./example
+yarn start
+yarn android
+```
+
+---
+
 ## `Example project`
 
 [Example Project React Native - PushLink](https://github.com/diogo-bruno/react-native-push-link-example)

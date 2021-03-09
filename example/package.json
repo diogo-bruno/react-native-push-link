@@ -13,9 +13,11 @@
     "build-android-release-publish-pushlink": "cd android && ./gradlew assembleRelease && cd .. && react-native pushlink-publish-apk"
   },
   "dependencies": {
+    "@react-native-picker/picker": "^1.9.11",
     "react": "16.13.1",
     "react-native": "0.63.4",
     "react-native-dotenv": "^2.5.3",
+    "react-native-navigation-bar-color": "^2.0.1",
     "react-native-picker-select": "^8.0.4",
     "react-native-push-link": "link:../",
     "react-native-splash-screen": "^3.2.0"
